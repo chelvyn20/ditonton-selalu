@@ -12,7 +12,7 @@ class SearchSerialsBloc extends Bloc<SearchSerialsEvent, SearchSerialsState> {
   final SearchSerials _searchSerials;
 
   SearchSerialsBloc(this._searchSerials) : super(SearchSerialsEmpty()) {
-    on<OnQueryChanged>((event, emit) async {
+    on<OnSerialQueryChanged>((event, emit) async {
       final query = event.query;
 
       emit(SearchSerialsLoading());

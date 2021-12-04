@@ -6,7 +6,11 @@ String readJson(String name) {
     dir = dir.replaceAll('/test', '');
   }
   if (dir.endsWith('search')) {
+    var dire = '$dir/test/$name';
+    print(dire);
     return File('$dir/test/$name').readAsStringSync();
   }
+  var dire = '$dir/search/test/$name';
+    print(dire);
   return File('$dir/search/test/$name').readAsStringSync();
 }

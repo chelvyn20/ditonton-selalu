@@ -21,7 +21,7 @@ class SearchSerialPage extends StatelessWidget {
           children: [
             TextField(
               onSubmitted: (query) {
-                context.read<SearchSerialsBloc>().add(OnQueryChanged(query));
+                context.read<SearchSerialsBloc>().add(OnSerialQueryChanged(query));
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
