@@ -24,11 +24,11 @@ class _FakeMovieRepository_0 extends _i1.Fake implements _i2.MovieRepository {}
 
 class _FakeEither_1<L, R> extends _i1.Fake implements _i3.Either<L, R> {}
 
-/// A class which mocks [SearchMovies].
+/// A class which mocks [GetSearchMovies].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSearchMovies extends _i1.Mock implements _i4.SearchMovies {
-  MockSearchMovies() {
+class MockGetSearchMovies extends _i1.Mock implements _i4.GetSearchMovies {
+  MockGetSearchMovies() {
     _i1.throwOnMissingStub(this);
   }
 

@@ -10,14 +10,14 @@ import 'package:search/presentation/bloc/search_movies_bloc.dart';
 
 import 'search_movies_bloc_test.mocks.dart';
 
-@GenerateMocks([SearchMovies])
+@GenerateMocks([GetSearchMovies])
 void main() {
   late SearchMoviesBloc searchMoviesBloc;
-  late MockSearchMovies mockSearchMovies;
+  late MockGetSearchMovies mockGetSearchMovies;
 
   setUp(() {
-    mockSearchMovies = MockSearchMovies();
-    searchMoviesBloc = SearchMoviesBloc(mockSearchMovies);
+    mockGetSearchMovies = MockGetSearchMovies();
+    searchMoviesBloc = SearchMoviesBloc(mockGetSearchMovies);
   });
 
   test('initial state should be empty', () {
@@ -46,7 +46,7 @@ void main() {
   blocTest<SearchMoviesBloc, SearchMoviesState>(
     'Should emit [Loading, HasData] when data is gotten successfully',
     build: () {
-      when(mockSearchMovies.execute(tQuery))
+      when(mockGetSearchMovies.execute(tQuery))
           .thenAnswer((_) async => Right(tMovieList));
       return searchMoviesBloc;
     },
@@ -57,14 +57,14 @@ void main() {
       SearchMoviesHasData(tMovieList),
     ],
     verify: (bloc) {
-      verify(mockSearchMovies.execute(tQuery));
+      verify(mockGetSearchMovies.execute(tQuery));
     },
   );
 
   blocTest<SearchMoviesBloc, SearchMoviesState>(
     'Should emit [Loading, Error] when get search is unsuccessful',
     build: () {
-      when(mockSearchMovies.execute(tQuery))
+      when(mockGetSearchMovies.execute(tQuery))
           .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       return searchMoviesBloc;
     },
@@ -75,7 +75,7 @@ void main() {
       const SearchMoviesError('Server Failure'),
     ],
     verify: (bloc) {
-      verify(mockSearchMovies.execute(tQuery));
+      verify(mockGetSearchMovies.execute(tQuery));
     },
   );
 }

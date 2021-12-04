@@ -10,14 +10,14 @@ import 'package:search/presentation/bloc/search_serials_bloc.dart';
 
 import 'search_serials_bloc_test.mocks.dart';
 
-@GenerateMocks([SearchSerials])
+@GenerateMocks([GetSearchSerials])
 void main() {
   late SearchSerialsBloc searchSerialsBloc;
-  late MockSearchSerials mockSearchSerials;
+  late MockGetSearchSerials mockGetSearchSerials;
 
   setUp(() {
-    mockSearchSerials = MockSearchSerials();
-    searchSerialsBloc = SearchSerialsBloc(mockSearchSerials);
+    mockGetSearchSerials = MockGetSearchSerials();
+    searchSerialsBloc = SearchSerialsBloc(mockGetSearchSerials);
   });
 
   test('initial state should be empty', () {
@@ -46,7 +46,7 @@ void main() {
   blocTest<SearchSerialsBloc, SearchSerialsState>(
     'Should emit [Loading, HasData] when data is gotten successfully',
     build: () {
-      when(mockSearchSerials.execute(tQuery))
+      when(mockGetSearchSerials.execute(tQuery))
           .thenAnswer((_) async => Right(tSerialList));
       return searchSerialsBloc;
     },
@@ -57,14 +57,14 @@ void main() {
       SearchSerialsHasData(tSerialList),
     ],
     verify: (bloc) {
-      verify(mockSearchSerials.execute(tQuery));
+      verify(mockGetSearchSerials.execute(tQuery));
     },
   );
 
   blocTest<SearchSerialsBloc, SearchSerialsState>(
     'Should emit [Loading, Error] when get search is unsuccessful',
     build: () {
-      when(mockSearchSerials.execute(tQuery))
+      when(mockGetSearchSerials.execute(tQuery))
           .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       return searchSerialsBloc;
     },
@@ -75,7 +75,7 @@ void main() {
       const SearchSerialsError('Server Failure'),
     ],
     verify: (bloc) {
-      verify(mockSearchSerials.execute(tQuery));
+      verify(mockGetSearchSerials.execute(tQuery));
     },
   );
 }

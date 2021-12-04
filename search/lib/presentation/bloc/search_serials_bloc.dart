@@ -9,7 +9,7 @@ part 'search_serials_event.dart';
 part 'search_serials_state.dart';
 
 class SearchSerialsBloc extends Bloc<SearchSerialsEvent, SearchSerialsState> {
-  final SearchSerials _searchSerials;
+  final GetSearchSerials _searchSerials;
 
   SearchSerialsBloc(this._searchSerials) : super(SearchSerialsEmpty()) {
     on<OnSerialQueryChanged>((event, emit) async {

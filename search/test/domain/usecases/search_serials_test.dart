@@ -7,12 +7,12 @@ import 'package:search/domain/usecases/search_serials.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
 void main() {
-  late SearchSerials searchSerials;
+  late GetSearchSerials getSearchSerials;
   late MockSerialRepository mockSerialRepository;
 
   setUp(() {
     mockSerialRepository = MockSerialRepository();
-    searchSerials = SearchSerials(mockSerialRepository);
+    getSearchSerials = GetSearchSerials(mockSerialRepository);
   });
 
   final tSerials = <Serial>[];
@@ -23,7 +23,7 @@ void main() {
     when(mockSerialRepository.searchSerials(tQuery))
         .thenAnswer((_) async => Right(tSerials));
     // act
-    final result = await searchSerials.execute(tQuery);
+    final result = await getSearchSerials.execute(tQuery);
     // assert
     expect(result, Right(tSerials));
   });

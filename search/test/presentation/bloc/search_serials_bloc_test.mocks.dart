@@ -25,11 +25,11 @@ class _FakeSerialRepository_0 extends _i1.Fake implements _i2.SerialRepository {
 
 class _FakeEither_1<L, R> extends _i1.Fake implements _i3.Either<L, R> {}
 
-/// A class which mocks [SearchSerials].
+/// A class which mocks [GetSearchSerials].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSearchSerials extends _i1.Mock implements _i4.SearchSerials {
-  MockSearchSerials() {
+class MockGetSearchSerials extends _i1.Mock implements _i4.GetSearchSerials {
+  MockGetSearchSerials() {
     _i1.throwOnMissingStub(this);
   }
 

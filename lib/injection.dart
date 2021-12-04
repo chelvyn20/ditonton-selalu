@@ -97,7 +97,7 @@ void init() {
   locator.registerLazySingleton(() => GetTopRatedMovies(locator()));
   locator.registerLazySingleton(() => GetMovieDetail(locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
-  locator.registerLazySingleton(() => SearchMovies(locator()));
+  locator.registerLazySingleton(() => GetSearchMovies(locator()));
   locator.registerLazySingleton(() => GetWatchListMovieStatus(locator()));
   locator.registerLazySingleton(() => SaveMovieWatchlist(locator()));
   locator.registerLazySingleton(() => RemoveMovieWatchlist(locator()));
@@ -108,7 +108,7 @@ void init() {
   locator.registerLazySingleton(() => GetTopRatedSerials(locator()));
   locator.registerLazySingleton(() => GetSerialDetail(locator()));
   locator.registerLazySingleton(() => GetSerialRecommendations(locator()));
-  locator.registerLazySingleton(() => SearchSerials(locator()));
+  locator.registerLazySingleton(() => GetSearchSerials(locator()));
   locator.registerLazySingleton(() => GetWatchListSerialStatus(locator()));
   locator.registerLazySingleton(() => SaveSerialWatchlist(locator()));
   locator.registerLazySingleton(() => RemoveSerialWatchlist(locator()));

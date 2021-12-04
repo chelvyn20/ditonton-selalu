@@ -3,10 +3,10 @@ import 'package:core/domain/repositories/serial_repository.dart';
 import 'package:core/utils/failure.dart';
 import 'package:dartz/dartz.dart';
 
-class SearchSerials {
+class GetSearchSerials {
   final SerialRepository repository;
 
-  SearchSerials(this.repository);
+  GetSearchSerials(this.repository);
 
   Future<Either<Failure, List<Serial>>> execute(String query) {
     return repository.searchSerials(query);

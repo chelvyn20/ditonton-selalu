@@ -7,12 +7,12 @@ import 'package:search/domain/usecases/search_movies.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
 void main() {
-  late SearchMovies searchMovies;
+  late GetSearchMovies getSearchMovies;
   late MockMovieRepository mockMovieRepository;
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
-    searchMovies = SearchMovies(mockMovieRepository);
+    getSearchMovies = GetSearchMovies(mockMovieRepository);
   });
 
   final tMovies = <Movie>[];
@@ -23,7 +23,7 @@ void main() {
     when(mockMovieRepository.searchMovies(tQuery))
         .thenAnswer((_) async => Right(tMovies));
     // act
-    final result = await searchMovies.execute(tQuery);
+    final result = await getSearchMovies.execute(tQuery);
     // assert
     expect(result, Right(tMovies));
   });
