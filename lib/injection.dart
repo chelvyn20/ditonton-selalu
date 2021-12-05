@@ -38,7 +38,7 @@ import 'package:core/presentation/provider/movie_list_notifier.dart';
 import 'package:core/presentation/provider/serial_detail_notifier.dart';
 import 'package:core/presentation/provider/serial_list_notifier.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:ditonton/io_client.dart';
+import 'package:core/common/io_client.dart';
 import 'package:http/io_client.dart';
 import 'package:get_it/get_it.dart';
 import 'package:search/domain/usecases/search_movies.dart';
@@ -150,7 +150,7 @@ void init() {
 
   // network info
   locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator()));
-  locator.registerLazySingleton<IOClient>(() => IOClientImpl());
+  locator.registerLazySingleton(() => IOClientImpl());
 
   // external
   locator.registerLazySingleton(() => DataConnectionChecker());

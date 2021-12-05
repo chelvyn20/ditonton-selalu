@@ -11,11 +11,4 @@ class Genre extends Equatable {
 
   @override
   List<Object> get props => [id, name];
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-    };
-  }
 }

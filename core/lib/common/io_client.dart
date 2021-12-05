@@ -11,7 +11,7 @@ class IOClientImpl extends IOClient {
     return securityContext;
   }
 
-  Future<IOClient> getMovieIOClient() async {
+  Future<IOClient> getIOClient() async {
     HttpClient client = HttpClient(context: await globalContext);
     client.badCertificateCallback =
         (X509Certificate cert, String host, int port) => false;

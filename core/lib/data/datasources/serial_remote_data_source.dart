@@ -1,8 +1,9 @@
+import 'package:core/common/io_client.dart';
 import 'package:core/data/models/serial_detail_model.dart';
 import 'package:core/data/models/serial_model.dart';
 import 'package:core/data/models/serial_response.dart';
 import 'package:core/utils/exception.dart';
-import 'package:http/io_client.dart';
+// import 'package:http/io_client.dart';
 
 abstract class SerialRemoteDataSource {
   Future<List<SerialModel>> getOnTheAirSerials();
@@ -17,7 +18,7 @@ class SerialRemoteDataSourceImpl implements SerialRemoteDataSource {
   static const _API_KEY = 'api_key=62c20507bd01d0795c9ee23ee915cfb0';
   static const _BASE_URL = 'https://api.themoviedb.org/3';
 
-  final IOClient ioClient;
+  final IOClientImpl ioClient;
 
   SerialRemoteDataSourceImpl({required this.ioClient});
 
