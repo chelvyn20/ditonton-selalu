@@ -150,7 +150,7 @@ void init() {
 
   // network info
   locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator()));
-  locator.registerLazySingleton<IOClient>(() => MovieIOClientImpl());
+  locator.registerLazySingleton<IOClient>(() => IOClientImpl());
 
   // external
   locator.registerLazySingleton(() => DataConnectionChecker());

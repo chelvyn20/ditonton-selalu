@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:http/io_client.dart';
 
-class MovieIOClientImpl extends IOClient {
+class IOClientImpl extends IOClient {
   Future<SecurityContext> get globalContext async {
     final sslCert = await rootBundle.load('certificates/certificates.pem');
     SecurityContext securityContext = SecurityContext(withTrustedRoots: false);
