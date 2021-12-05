@@ -1,5 +1,6 @@
 import 'package:about/about.dart';
 import 'package:core/common/utils.dart';
+import 'package:core/common/http_ssl_pinning.dart';
 import 'package:core/core.dart';
 import 'package:core/presentation/bloc/movie/popular_movies/popular_movies_bloc.dart';
 import 'package:core/presentation/bloc/movie/top_rated_movies/top_rated_movies_bloc.dart';
@@ -39,6 +40,7 @@ import 'package:search/presentation/pages/search_serial_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await HttpSSLPinning.init();
   di.init();
   runApp(MyApp());
 }

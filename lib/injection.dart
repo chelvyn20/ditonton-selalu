@@ -38,8 +38,7 @@ import 'package:core/presentation/provider/movie_list_notifier.dart';
 import 'package:core/presentation/provider/serial_detail_notifier.dart';
 import 'package:core/presentation/provider/serial_list_notifier.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:core/common/io_client.dart';
-import 'package:http/io_client.dart';
+import 'package:core/common/http_ssl_pinning.dart';
 import 'package:get_it/get_it.dart';
 import 'package:search/domain/usecases/search_movies.dart';
 import 'package:search/domain/usecases/search_serials.dart';
@@ -133,12 +132,12 @@ void init() {
 
   // data sources
   locator.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(ioClient: locator()));
+      () => MovieRemoteDataSourceImpl(client: locator()));
   locator.registerLazySingleton<MovieLocalDataSource>(
       () => MovieLocalDataSourceImpl(movieDatabaseHelper: locator()));
 
   locator.registerLazySingleton<SerialRemoteDataSource>(
-      () => SerialRemoteDataSourceImpl(ioClient: locator()));
+      () => SerialRemoteDataSourceImpl(client: locator()));
   locator.registerLazySingleton<SerialLocalDataSource>(
       () => SerialLocalDataSourceImpl(serialDatabaseHelper: locator()));
 
@@ -150,7 +149,7 @@ void init() {
 
   // network info
   locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator()));
-  locator.registerLazySingleton(() => IOClientImpl());
+  locator.registerLazySingleton(() => HttpSSLPinning.client);
 
   // external
   locator.registerLazySingleton(() => DataConnectionChecker());

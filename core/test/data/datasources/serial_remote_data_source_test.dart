@@ -16,11 +16,11 @@ void main() {
   const BASE_URL = 'https://api.themoviedb.org/3';
 
   late SerialRemoteDataSourceImpl dataSource;
-  late MockIOClientImpl mockIOClientImpl;
+  late MockHttpClient mockIOClientImpl;
 
   setUp(() {
-    mockIOClientImpl = MockIOClientImpl();
-    dataSource = SerialRemoteDataSourceImpl(ioClient: mockIOClientImpl);
+    mockIOClientImpl = MockHttpClient();
+    dataSource = SerialRemoteDataSourceImpl(client: mockIOClientImpl);
   });
 
   group('get On The air Serials', () {

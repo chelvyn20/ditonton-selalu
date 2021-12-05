@@ -15,11 +15,11 @@ void main() {
   const BASE_URL = 'https://api.themoviedb.org/3';
 
   late MovieRemoteDataSourceImpl dataSource;
-  late MockIOClientImpl mockIOClientImpl;
+  late MockHttpClient mockHttpClient;
 
   setUp(() {
-    mockIOClientImpl = MockIOClientImpl();
-    dataSource = MovieRemoteDataSourceImpl(ioClient: mockIOClientImpl);
+    mockHttpClient = MockHttpClient();
+    dataSource = MovieRemoteDataSourceImpl(client: mockHttpClient);
   });
 
   group('search movies', () {
@@ -30,7 +30,7 @@ void main() {
 
     test('should return list of movies when response code is 200', () async {
       // arrange
-      when(mockIOClientImpl
+      when(mockHttpClient
               .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response(
               readJson('dummy_data/search_spiderman_movie.json'), 200));
@@ -43,7 +43,7 @@ void main() {
     test('should throw ServerException when response code is other than 200',
         () async {
       // arrange
-      when(mockIOClientImpl
+      when(mockHttpClient
               .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act

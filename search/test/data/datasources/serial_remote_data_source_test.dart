@@ -15,11 +15,11 @@ void main() {
   const BASE_URL = 'https://api.themoviedb.org/3';
 
   late SerialRemoteDataSourceImpl dataSource;
-  late MockIOClientImpl mockIOClientImpl;
+  late MockHttpClient mockHttpClient;
 
   setUp(() {
-    mockIOClientImpl = MockIOClientImpl();
-    dataSource = SerialRemoteDataSourceImpl(ioClient: mockIOClientImpl);
+    mockHttpClient = MockHttpClient();
+    dataSource = SerialRemoteDataSourceImpl(client: mockHttpClient);
   });
 
   group('search serials', () {
@@ -30,7 +30,7 @@ void main() {
 
     test('should return list of serials when response code is 200', () async {
       // arrange
-      when(mockIOClientImpl
+      when(mockHttpClient
               .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response(
               readJson('dummy_data/search_vincenzo_serial.json'), 200));
@@ -43,7 +43,7 @@ void main() {
     test('should throw ServerException when response code is other than 200',
         () async {
       // arrange
-      when(mockIOClientImpl
+      when(mockHttpClient
               .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
