@@ -44,29 +44,23 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
             movieDetail: movie,
             movieDetailState: RequestState.loaded,
             movieRecommendationsState: RequestState.loading,
-            message: '',
           ));
           recommendationResult.fold(
             (failure) {
               emit(state.copyWith(
-                  movieRecommendationsState: RequestState.error,
-                  message: failure.message));
+                movieRecommendationsState: RequestState.error,
+                message: failure.message,
+              ));
             },
             (movies) {
               emit(state.copyWith(
                 movieRecommendationsState: RequestState.loaded,
                 movieRecommendations: movies,
-                message: '',
               ));
             },
           );
         },
       );
-    });
-
-    on<LoadWatchlistStatus>((event, emit) async {
-      final result = await getWatchListStatus.execute(event.id);
-      emit(state.copyWith(isAddedToWatchlist: result));
     });
 
     on<AddToWatchlist>((event, emit) async {
@@ -89,8 +83,17 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       }, (successMessage) {
         emit(state.copyWith(watchlistMessage: successMessage));
       });
-
       add(LoadWatchlistStatus(event.movieDetail.id));
+    });
+
+    on<LoadWatchlistStatus>((event, emit) async {
+      final result = await getWatchListStatus.execute(event.id);
+      emit(state.copyWith(
+        isAddedToWatchlist: result,
+        watchlistMessage: result
+            ? MovieDetailState.removeMovieSuccessMsg
+            : MovieDetailState.addMovieSuccessMsg,
+      ));
     });
   }
 }

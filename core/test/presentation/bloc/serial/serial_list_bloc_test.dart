@@ -76,7 +76,7 @@ void main() {
             serialListOnTheAirState: RequestState.loading),
         serialListStateInit.copyWith(
           serialListOnTheAirState: RequestState.loaded,
-          data: tSerialList,
+          slOnTheAirData: tSerialList,
         ),
       ],
       verify: (bloc) {
@@ -129,7 +129,7 @@ void main() {
             serialListPopularState: RequestState.loading),
         serialListStateInit.copyWith(
           serialListPopularState: RequestState.loaded,
-          data: tSerialList,
+          slPopularData: tSerialList,
         ),
       ],
       verify: (bloc) {
@@ -182,7 +182,7 @@ void main() {
             serialListTopRatedState: RequestState.loading),
         serialListStateInit.copyWith(
           serialListTopRatedState: RequestState.loaded,
-          data: tSerialList,
+          slTopRatedData: tSerialList,
         ),
       ],
       verify: (bloc) {

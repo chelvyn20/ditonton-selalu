@@ -4,7 +4,6 @@ import 'package:core/domain/entities/genre.dart';
 import 'package:core/domain/entities/serial.dart';
 import 'package:core/domain/entities/serial_detail.dart';
 import 'package:core/presentation/bloc/serial/serial_detail/serial_detail_bloc.dart';
-// import 'package:core/presentation/provider/serial_detail_notifier.dart';
 import 'package:core/utils/routes.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +27,6 @@ class _SerialDetailPageState extends State<SerialDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      // Provider.of<SerialDetailNotifier>(context, listen: false)
-      //     .fetchSerialDetail(widget.id);
-      // Provider.of<SerialDetailNotifier>(context, listen: false)
-      //     .loadWatchlistStatus(widget.id);
       context.read<SerialDetailBloc>()
         ..add(FetchSerialDetail(widget.id))
         ..add(LoadWatchlistStatus(widget.id));
@@ -41,28 +36,7 @@ class _SerialDetailPageState extends State<SerialDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          // Consumer<SerialDetailNotifier>(
-          //   builder: (context, provider, child) {
-          //     if (provider.serialState == RequestState.loading) {
-          //       return const Center(
-          //         child: CircularProgressIndicator(),
-          //       );
-          //     } else if (provider.serialState == RequestState.loaded) {
-          //       final serial = provider.serial;
-          //       return SafeArea(
-          //         child: DetailContent(
-          //           serial,
-          //           provider.serialRecommendations,
-          //           provider.isAddedToWatchlist,
-          //         ),
-          //       );
-          //     } else {
-          //       return Text(provider.message);
-          //     }
-          //   },
-          // ),
-          BlocBuilder<SerialDetailBloc, SerialDetailState>(
+      body: BlocBuilder<SerialDetailBloc, SerialDetailState>(
         builder: (context, state) {
           if (state.serialDetailState == RequestState.loading) {
             return const Center(
@@ -138,44 +112,25 @@ class DetailContent extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  // await Provider.of<SerialDetailNotifier>(
-                                  //         context,
-                                  //         listen: false)
-                                  //     .addWatchlist(serial);
                                   context
                                       .read<SerialDetailBloc>()
                                       .add(AddToWatchlist(serial));
                                 } else {
-                                  // await Provider.of<SerialDetailNotifier>(
-                                  //         context,
-                                  //         listen: false)
-                                  //     .removeFromWatchlist(serial);
                                   context
                                       .read<SerialDetailBloc>()
                                       .add(RemoveFromWatchlist(serial));
                                 }
 
-                                final message =
-                                    // Provider.of<SerialDetailNotifier>(context,
-                                    //         listen: false)
-                                    //     .watchlistMessage;
-                                    context
-                                        .read<SerialDetailState>()
-                                        .watchlistMessage;
+                                final message = context
+                                    .read<SerialDetailBloc>()
+                                    .state
+                                    .watchlistMessage;
 
-                                if (
-                                    // message ==
-                                    //       SerialDetailNotifier
-                                    //           .watchlistAddSuccessMessage ||
-                                    //   message ==
-                                    //       SerialDetailNotifier
-                                    //           .watchlistRemoveSuccessMessage
+                                if (message ==
+                                        SerialDetailState.addSerialSuccessMsg ||
                                     message ==
-                                            SerialDetailState
-                                                .watchlistAddSuccessMessage ||
-                                        message ==
-                                            SerialDetailState
-                                                .watchlistRemoveSuccessMessage) {
+                                        SerialDetailState
+                                            .removeSerialSuccessMsg) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text(message)));
                                 } else {
@@ -231,63 +186,6 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            // Consumer<SerialDetailNotifier>(
-                            //   builder: (context, data, child) {
-                            //     if (data.recommendationState ==
-                            //         RequestState.loading) {
-                            //       return const Center(
-                            //         child: CircularProgressIndicator(),
-                            //       );
-                            //     } else if (data.recommendationState ==
-                            //         RequestState.error) {
-                            //       return Text(data.message);
-                            //     } else if (data.recommendationState ==
-                            //         RequestState.loaded) {
-                            //       return SizedBox(
-                            //         height: 150,
-                            //         child: ListView.builder(
-                            //           scrollDirection: Axis.horizontal,
-                            //           itemBuilder: (context, index) {
-                            //             final serial = recommendations[index];
-                            //             return Padding(
-                            //               padding: const EdgeInsets.all(4.0),
-                            //               child: InkWell(
-                            //                 onTap: () {
-                            //                   Navigator.pushReplacementNamed(
-                            //                     context,
-                            //                     DETAIL_SERIAL_ROUTE,
-                            //                     arguments: serial.id,
-                            //                   );
-                            //                 },
-                            //                 child: ClipRRect(
-                            //                   borderRadius:
-                            //                       const BorderRadius.all(
-                            //                     Radius.circular(8),
-                            //                   ),
-                            //                   child: CachedNetworkImage(
-                            //                     imageUrl:
-                            //                         'https://image.tmdb.org/t/p/w500${serial.posterPath}',
-                            //                     placeholder: (context, url) =>
-                            //                         const Center(
-                            //                       child:
-                            //                           CircularProgressIndicator(),
-                            //                     ),
-                            //                     errorWidget:
-                            //                         (context, url, error) =>
-                            //                             const Icon(Icons.error),
-                            //                   ),
-                            //                 ),
-                            //               ),
-                            //             );
-                            //           },
-                            //           itemCount: recommendations.length,
-                            //         ),
-                            //       );
-                            //     } else {
-                            //       return Container();
-                            //     }
-                            //   },
-                            // ),
                             BlocBuilder<SerialDetailBloc, SerialDetailState>(
                               builder: (context, state) {
                                 if (state.serialRecommendationsState ==

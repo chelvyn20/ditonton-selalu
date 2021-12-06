@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../dummy_data/dummy_serial_objects.dart';
+// import '../../../dummy_data/dummy_serial_objects.dart';
 
 class MockSerialDetailBloc extends Mock implements SerialDetailBloc {}
 

@@ -17,6 +17,8 @@ dependencies:
   flutter_bloc: ^7.2.0
   equatable: ^2.0.3
   rxdart: ^0.27.1
+  firebase_core: ^1.6.0
+  firebase_crashlytics: ^2.0.0
 
 dev_dependencies:
   flutter_test:

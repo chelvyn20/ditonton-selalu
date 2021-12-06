@@ -44,7 +44,6 @@ class SerialDetailBloc extends Bloc<SerialDetailEvent, SerialDetailState> {
             serialDetail: serial,
             serialDetailState: RequestState.loaded,
             serialRecommendationsState: RequestState.loading,
-            message: '',
           ));
           recommendationResult.fold(
             (failure) {
@@ -56,17 +55,11 @@ class SerialDetailBloc extends Bloc<SerialDetailEvent, SerialDetailState> {
               emit(state.copyWith(
                 serialRecommendationsState: RequestState.loaded,
                 serialRecommendations: serials,
-                message: '',
               ));
             },
           );
         },
       );
-    });
-
-    on<LoadWatchlistStatus>((event, emit) async {
-      final result = await getWatchListStatus.execute(event.id);
-      emit(state.copyWith(isAddedToWatchlist: result));
     });
 
     on<AddToWatchlist>((event, emit) async {
@@ -91,6 +84,16 @@ class SerialDetailBloc extends Bloc<SerialDetailEvent, SerialDetailState> {
       });
 
       add(LoadWatchlistStatus(event.serialDetail.id));
+    });
+
+    on<LoadWatchlistStatus>((event, emit) async {
+      final result = await getWatchListStatus.execute(event.id);
+      emit(state.copyWith(
+        isAddedToWatchlist: result,
+        watchlistMessage: result
+            ? SerialDetailState.removeSerialSuccessMsg
+            : SerialDetailState.addSerialSuccessMsg,
+      ));
     });
   }
 }

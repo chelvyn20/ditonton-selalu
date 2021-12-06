@@ -4,23 +4,42 @@ class MovieListState extends Equatable {
   final RequestState movieListNowPlayingState;
   final RequestState movieListPopularState;
   final RequestState movieListTopRatedState;
+  final List<Movie> mlNowPlayingData;
+  final List<Movie> mlPopularData;
+  final List<Movie> mlTopRatedData;
   final String message;
-  final List<Movie> data;
 
   const MovieListState({
     required this.movieListNowPlayingState,
     required this.movieListPopularState,
     required this.movieListTopRatedState,
+    required this.mlNowPlayingData,
+    required this.mlPopularData,
+    required this.mlTopRatedData,
     required this.message,
-    required this.data,
   });
+
+  @override
+  List<Object> get props {
+    return [
+      movieListNowPlayingState,
+      movieListPopularState,
+      movieListTopRatedState,
+      mlNowPlayingData,
+      mlPopularData,
+      mlTopRatedData,
+      message,
+    ];
+  }
 
   MovieListState copyWith({
     RequestState? movieListNowPlayingState,
     RequestState? movieListPopularState,
     RequestState? movieListTopRatedState,
+    List<Movie>? mlNowPlayingData,
+    List<Movie>? mlPopularData,
+    List<Movie>? mlTopRatedData,
     String? message,
-    List<Movie>? data,
   }) {
     return MovieListState(
       movieListNowPlayingState:
@@ -29,8 +48,10 @@ class MovieListState extends Equatable {
           movieListPopularState ?? this.movieListPopularState,
       movieListTopRatedState:
           movieListTopRatedState ?? this.movieListTopRatedState,
+      mlNowPlayingData: mlNowPlayingData ?? this.mlNowPlayingData,
+      mlPopularData: mlPopularData ?? this.mlPopularData,
+      mlTopRatedData: mlTopRatedData ?? this.mlTopRatedData,
       message: message ?? this.message,
-      data: data ?? this.data,
     );
   }
 
@@ -38,16 +59,9 @@ class MovieListState extends Equatable {
         movieListNowPlayingState: RequestState.empty,
         movieListPopularState: RequestState.empty,
         movieListTopRatedState: RequestState.empty,
+        mlNowPlayingData: <Movie>[],
+        mlPopularData: <Movie>[],
+        mlTopRatedData: <Movie>[],
         message: '',
-        data: <Movie>[],
       );
-
-  @override
-  List<Object> get props => [
-        movieListNowPlayingState,
-        movieListPopularState,
-        movieListTopRatedState,
-        message,
-        data,
-      ];
 }

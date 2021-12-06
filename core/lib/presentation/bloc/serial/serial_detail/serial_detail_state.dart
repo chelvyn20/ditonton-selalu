@@ -1,8 +1,8 @@
 part of 'serial_detail_bloc.dart';
 
 class SerialDetailState extends Equatable {
-  static const watchlistAddSuccessMessage = 'Added to Watchlist';
-  static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
+  static const addSerialSuccessMsg = 'Added serial to Watchlist';
+  static const removeSerialSuccessMsg = 'Removed serial from Watchlist';
 
   final SerialDetail serialDetail;
   final RequestState serialDetailState;

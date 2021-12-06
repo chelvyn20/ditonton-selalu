@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   core:
     path: ../core
+  firebase_core: ^1.6.0
+  firebase_crashlytics: ^2.0.0
 
 dev_dependencies:
   flutter_test:

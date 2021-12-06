@@ -34,7 +34,7 @@ class SerialListBloc extends Bloc<SerialListEvent, SerialListState> {
           (data) {
             emit(state.copyWith(
               serialListOnTheAirState: RequestState.loaded,
-              data: data,
+              slOnTheAirData: data,
             ));
           },
         );
@@ -56,7 +56,7 @@ class SerialListBloc extends Bloc<SerialListEvent, SerialListState> {
           (data) {
             emit(state.copyWith(
               serialListPopularState: RequestState.loaded,
-              data: data,
+              slPopularData: data,
             ));
           },
         );
@@ -78,7 +78,7 @@ class SerialListBloc extends Bloc<SerialListEvent, SerialListState> {
           (data) {
             emit(state.copyWith(
               serialListTopRatedState: RequestState.loaded,
-              data: data,
+              slTopRatedData: data,
             ));
           },
         );

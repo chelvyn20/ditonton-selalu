@@ -1,8 +1,8 @@
 part of 'movie_detail_bloc.dart';
 
 class MovieDetailState extends Equatable {
-  static const watchlistAddSuccessMessage = 'Added to Watchlist';
-  static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
+  static const addMovieSuccessMsg = 'Added movie to Watchlist';
+  static const removeMovieSuccessMsg = 'Removed movie from Watchlist';
 
   final MovieDetail movieDetail;
   final RequestState movieDetailState;

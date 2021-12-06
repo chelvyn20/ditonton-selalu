@@ -34,7 +34,7 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
           (data) {
             emit(state.copyWith(
               movieListNowPlayingState: RequestState.loaded,
-              data: data,
+              mlNowPlayingData: data,
             ));
           },
         );
@@ -56,7 +56,7 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
           (data) {
             emit(state.copyWith(
               movieListPopularState: RequestState.loaded,
-              data: data,
+              mlPopularData: data,
             ));
           },
         );
@@ -78,7 +78,7 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
           (data) {
             emit(state.copyWith(
               movieListTopRatedState: RequestState.loaded,
-              data: data,
+              mlTopRatedData: data,
             ));
           },
         );

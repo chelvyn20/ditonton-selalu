@@ -76,7 +76,7 @@ void main() {
             movieListNowPlayingState: RequestState.loading),
         movieListStateInit.copyWith(
           movieListNowPlayingState: RequestState.loaded,
-          data: tMovieList,
+          mlNowPlayingData: tMovieList,
         ),
       ],
       verify: (bloc) {
@@ -129,7 +129,7 @@ void main() {
             movieListPopularState: RequestState.loading),
         movieListStateInit.copyWith(
           movieListPopularState: RequestState.loaded,
-          data: tMovieList,
+          mlPopularData: tMovieList,
         ),
       ],
       verify: (bloc) {
@@ -182,7 +182,7 @@ void main() {
             movieListTopRatedState: RequestState.loading),
         movieListStateInit.copyWith(
           movieListTopRatedState: RequestState.loaded,
-          data: tMovieList,
+          mlTopRatedData: tMovieList,
         ),
       ],
       verify: (bloc) {
