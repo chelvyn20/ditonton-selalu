@@ -90,9 +90,6 @@ class SerialDetailBloc extends Bloc<SerialDetailEvent, SerialDetailState> {
       final result = await getWatchListStatus.execute(event.id);
       emit(state.copyWith(
         isAddedToWatchlist: result,
-        watchlistMessage: result
-            ? SerialDetailState.removeSerialSuccessMsg
-            : SerialDetailState.addSerialSuccessMsg,
       ));
     });
   }

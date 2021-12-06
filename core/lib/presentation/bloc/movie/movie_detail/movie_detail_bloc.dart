@@ -83,6 +83,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       }, (successMessage) {
         emit(state.copyWith(watchlistMessage: successMessage));
       });
+
       add(LoadWatchlistStatus(event.movieDetail.id));
     });
 
@@ -90,9 +91,6 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       final result = await getWatchListStatus.execute(event.id);
       emit(state.copyWith(
         isAddedToWatchlist: result,
-        watchlistMessage: result
-            ? MovieDetailState.removeMovieSuccessMsg
-            : MovieDetailState.addMovieSuccessMsg,
       ));
     });
   }
