@@ -20,10 +20,6 @@ void main() {
     popularMoviesBloc = PopularMoviesBloc(mockGetPopularMovies);
   });
 
-  test('initial state should be empty', () {
-    expect(popularMoviesBloc.state, PopularMoviesEmpty());
-  });
-
   final tMovie = Movie(
     adult: false,
     backdropPath: 'backdropPath',
@@ -40,6 +36,10 @@ void main() {
     voteCount: 1,
   );
   final tMovieList = <Movie>[tMovie];
+
+  test('initial state should be empty', () {
+    expect(popularMoviesBloc.state, PopularMoviesEmpty());
+  });
 
   blocTest<PopularMoviesBloc, PopularMoviesState>(
     'Should emit [Loading, HasData] when popular-movies data is gotten successfully',

@@ -33,9 +33,11 @@ import 'package:core/presentation/bloc/movie/watchlist_movie/watchlist_movie_blo
 import 'package:core/presentation/bloc/serial/popular_serials/popular_serials_bloc.dart';
 import 'package:core/presentation/bloc/serial/top_rated_serials/top_rated_serials_bloc.dart';
 import 'package:core/presentation/bloc/serial/watchlist_serial/watchlist_serial_bloc.dart';
-import 'package:core/presentation/provider/movie_detail_notifier.dart';
+// import 'package:core/presentation/provider/movie_detail_notifier.dart';
+import 'package:core/presentation/bloc/movie/movie_detail/movie_detail_bloc.dart';
 import 'package:core/presentation/provider/movie_list_notifier.dart';
-import 'package:core/presentation/provider/serial_detail_notifier.dart';
+// import 'package:core/presentation/provider/serial_detail_notifier.dart';
+import 'package:core/presentation/bloc/serial/serial_detail/serial_detail_bloc.dart';
 import 'package:core/presentation/provider/serial_list_notifier.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:core/common/http_ssl_pinning.dart';
@@ -56,7 +58,14 @@ void init() {
     ),
   );
   locator.registerFactory(
-    () => MovieDetailNotifier(
+    // () => MovieDetailNotifier(
+    // getMovieDetail: locator(),
+    // getMovieRecommendations: locator(),
+    // getWatchListStatus: locator(),
+    // saveWatchlist: locator(),
+    // removeWatchlist: locator(),
+    // ),
+    () => MovieDetailBloc(
       getMovieDetail: locator(),
       getMovieRecommendations: locator(),
       getWatchListStatus: locator(),
@@ -77,7 +86,14 @@ void init() {
     ),
   );
   locator.registerFactory(
-    () => SerialDetailNotifier(
+    // () => SerialDetailNotifier(
+    //   getSerialDetail: locator(),
+    //   getSerialRecommendations: locator(),
+    //   getWatchListStatus: locator(),
+    //   saveWatchlist: locator(),
+    //   removeWatchlist: locator(),
+    // ),
+    () => SerialDetailBloc(
       getSerialDetail: locator(),
       getSerialRecommendations: locator(),
       getWatchListStatus: locator(),

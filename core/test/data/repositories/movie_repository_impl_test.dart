@@ -252,7 +252,7 @@ void main() {
       tagline: 'Tagline',
       title: 'title',
       video: false,
-      voteAverage: 1,
+      voteAverage: 1.0,
       voteCount: 1,
     );
 

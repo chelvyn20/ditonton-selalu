@@ -251,7 +251,7 @@ void main() {
       status: 'Status',
       tagline: 'Tagline',
       type: 'hero',
-      voteAverage: 1,
+      voteAverage: 1.0,
       voteCount: 1,
     );
 

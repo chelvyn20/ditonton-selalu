@@ -32,7 +32,7 @@ const testSerialDetail = SerialDetail(
   firstAirDate: 'firstAirDate',
   numberOfSeasons: 1,
   name: 'name',
-  voteAverage: 1,
+  voteAverage: 1.0,
   voteCount: 1,
 );
 

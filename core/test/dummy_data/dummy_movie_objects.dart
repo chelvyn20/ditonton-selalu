@@ -33,7 +33,7 @@ const testMovieDetail = MovieDetail(
   releaseDate: 'releaseDate',
   runtime: 120,
   title: 'title',
-  voteAverage: 1,
+  voteAverage: 1.0,
   voteCount: 1,
 );
 
