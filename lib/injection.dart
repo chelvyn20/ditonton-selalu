@@ -34,11 +34,14 @@ import 'package:core/presentation/bloc/serial/popular_serials/popular_serials_bl
 import 'package:core/presentation/bloc/serial/top_rated_serials/top_rated_serials_bloc.dart';
 import 'package:core/presentation/bloc/serial/watchlist_serial/watchlist_serial_bloc.dart';
 // import 'package:core/presentation/provider/movie_detail_notifier.dart';
+// import 'package:core/presentation/provider/movie_list_notifier.dart';
 import 'package:core/presentation/bloc/movie/movie_detail/movie_detail_bloc.dart';
-import 'package:core/presentation/provider/movie_list_notifier.dart';
+import 'package:core/presentation/bloc/movie/movie_list/movie_list_bloc.dart';
 // import 'package:core/presentation/provider/serial_detail_notifier.dart';
+// import 'package:core/presentation/provider/serial_list_notifier.dart';
 import 'package:core/presentation/bloc/serial/serial_detail/serial_detail_bloc.dart';
-import 'package:core/presentation/provider/serial_list_notifier.dart';
+import 'package:core/presentation/bloc/serial/serial_list/serial_list_bloc.dart';
+
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:core/common/http_ssl_pinning.dart';
 import 'package:get_it/get_it.dart';
@@ -51,10 +54,15 @@ final locator = GetIt.instance;
 
 void init() {
   locator.registerFactory(
-    () => MovieListNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
+    // () => MovieListNotifier(
+    //   getNowPlayingMovies: locator(),
+    //   getPopularMovies: locator(),
+    //   getTopRatedMovies: locator(),
+    // ),
+    () => MovieListBloc(
+      locator(),
+      locator(),
+      locator(),
     ),
   );
   locator.registerFactory(
@@ -79,10 +87,15 @@ void init() {
   locator.registerFactory(() => WatchlistMovieBloc(locator()));
 
   locator.registerFactory(
-    () => SerialListNotifier(
-      getOnTheAirSerials: locator(),
-      getPopularSerials: locator(),
-      getTopRatedSerials: locator(),
+    // () => SerialListNotifier(
+    //   getOnTheAirSerials: locator(),
+    //   getPopularSerials: locator(),
+    //   getTopRatedSerials: locator(),
+    // ),
+    () => SerialListBloc(
+      locator(),
+      locator(),
+      locator(),
     ),
   );
   locator.registerFactory(

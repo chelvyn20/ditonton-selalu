@@ -2,10 +2,12 @@ import 'package:about/about.dart';
 import 'package:core/common/utils.dart';
 import 'package:core/common/http_ssl_pinning.dart';
 import 'package:core/core.dart';
+import 'package:core/presentation/bloc/movie/movie_list/movie_list_bloc.dart';
 import 'package:core/presentation/bloc/movie/movie_detail/movie_detail_bloc.dart';
 import 'package:core/presentation/bloc/movie/popular_movies/popular_movies_bloc.dart';
 import 'package:core/presentation/bloc/movie/top_rated_movies/top_rated_movies_bloc.dart';
 import 'package:core/presentation/bloc/movie/watchlist_movie/watchlist_movie_bloc.dart';
+import 'package:core/presentation/bloc/serial/serial_list/serial_list_bloc.dart';
 import 'package:core/presentation/bloc/serial/serial_detail/serial_detail_bloc.dart';
 import 'package:core/presentation/bloc/serial/popular_serials/popular_serials_bloc.dart';
 import 'package:core/presentation/bloc/serial/top_rated_serials/top_rated_serials_bloc.dart';
@@ -21,9 +23,9 @@ import 'package:core/presentation/pages/serial/serial_detail_page.dart';
 import 'package:core/presentation/pages/serial/top_rated_serials_page.dart';
 import 'package:core/presentation/pages/serial/watchlist_serial_page.dart';
 // import 'package:core/presentation/provider/movie_detail_notifier.dart';
-import 'package:core/presentation/provider/movie_list_notifier.dart';
+// import 'package:core/presentation/provider/movie_list_notifier.dart';
 // import 'package:core/presentation/provider/serial_detail_notifier.dart';
-import 'package:core/presentation/provider/serial_list_notifier.dart';
+// import 'package:core/presentation/provider/serial_list_notifier.dart';
 import 'package:core/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -53,11 +55,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         // movie-provider
-        ChangeNotifierProvider(create: (_) => di.locator<MovieListNotifier>()),
+        // ChangeNotifierProvider(create: (_) => di.locator<MovieListNotifier>()),
         // ChangeNotifierProvider(
         //     create: (_) => di.locator<MovieDetailNotifier>()),
 
         //movie-bloc
+        BlocProvider(create: (_) => di.locator<MovieListBloc>()),
         BlocProvider(create: (_) => di.locator<MovieDetailBloc>()),
         BlocProvider(create: (_) => di.locator<PopularMoviesBloc>()),
         BlocProvider(create: (_) => di.locator<TopRatedMoviesBloc>()),
@@ -66,11 +69,12 @@ class MyApp extends StatelessWidget {
         //*
 
         //serial-provider
-        ChangeNotifierProvider(create: (_) => di.locator<SerialListNotifier>()),
+        // ChangeNotifierProvider(create: (_) => di.locator<SerialListNotifier>()),
         // ChangeNotifierProvider(
         //     create: (_) => di.locator<SerialDetailNotifier>()),
 
         //serial-bloc
+        BlocProvider(create: (_) => di.locator<SerialListBloc>()),
         BlocProvider(create: (_) => di.locator<SerialDetailBloc>()),
         BlocProvider(create: (_) => di.locator<PopularSerialsBloc>()),
         BlocProvider(create: (_) => di.locator<TopRatedSerialsBloc>()),

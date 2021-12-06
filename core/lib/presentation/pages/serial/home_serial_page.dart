@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:core/domain/entities/serial.dart';
-import 'package:core/presentation/provider/serial_list_notifier.dart';
+import 'package:core/presentation/bloc/serial/serial_list/serial_list_bloc.dart';
+// import 'package:core/presentation/provider/serial_list_notifier.dart';
 import 'package:core/utils/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class HomeSerialPage extends StatefulWidget {
@@ -19,11 +21,16 @@ class _HomeSerialPageState extends State<HomeSerialPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => Provider.of<SerialListNotifier>(context, listen: false)
-          ..fetchOnTheAirSerials()
-          ..fetchPopularSerials()
-          ..fetchTopRatedSerials());
+    Future.microtask(() {
+      // Provider.of<SerialListNotifier>(context, listen: false)
+      //   ..fetchOnTheAirSerials()
+      //   ..fetchPopularSerials()
+      //   ..fetchTopRatedSerials();
+      context.read<SerialListBloc>()
+        ..add(const FetchOnTheAirSerials())
+        ..add(const FetchPopularSerials())
+        ..add(const FetchTopRatedSerials());
+    });
   }
 
   @override
@@ -98,14 +105,27 @@ class _HomeSerialPageState extends State<HomeSerialPage> {
                 'On The Air',
                 style: kHeading6,
               ),
-              Consumer<SerialListNotifier>(builder: (context, data, child) {
-                final state = data.onTheAirState;
-                if (state == RequestState.loading) {
+              // Consumer<SerialListNotifier>(builder: (context, data, child) {
+              //   final state = data.onTheAirState;
+              //   if (state == RequestState.loading) {
+              //     return const Center(
+              //       child: CircularProgressIndicator(),
+              //     );
+              //   } else if (state == RequestState.loaded) {
+              //     return SerialList(data.onTheAirSerials);
+              //   } else {
+              //     return const Text('Failed');
+              //   }
+              // }),
+              BlocBuilder<SerialListBloc, SerialListState>(
+                  builder: (context, state) {
+                if (state.serialListOnTheAirState == RequestState.loading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.loaded) {
-                  return SerialList(data.onTheAirSerials);
+                } else if (state.serialListOnTheAirState ==
+                    RequestState.loaded) {
+                  return SerialList(state.data);
                 } else {
                   return const Text('Failed');
                 }
@@ -115,14 +135,27 @@ class _HomeSerialPageState extends State<HomeSerialPage> {
                 onTap: () =>
                     Navigator.pushNamed(context, POPULAR_SERIALS_ROUTE),
               ),
-              Consumer<SerialListNotifier>(builder: (context, data, child) {
-                final state = data.popularSerialsState;
-                if (state == RequestState.loading) {
+              // Consumer<SerialListNotifier>(builder: (context, data, child) {
+              //   final state = data.popularSerialsState;
+              //   if (state == RequestState.loading) {
+              //     return const Center(
+              //       child: CircularProgressIndicator(),
+              //     );
+              //   } else if (state == RequestState.loaded) {
+              //     return SerialList(data.popularSerials);
+              //   } else {
+              //     return const Text('Failed');
+              //   }
+              // }),
+              BlocBuilder<SerialListBloc, SerialListState>(
+                  builder: (context, state) {
+                if (state.serialListPopularState == RequestState.loading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.loaded) {
-                  return SerialList(data.popularSerials);
+                } else if (state.serialListPopularState ==
+                    RequestState.loaded) {
+                  return SerialList(state.data);
                 } else {
                   return const Text('Failed');
                 }
@@ -132,14 +165,27 @@ class _HomeSerialPageState extends State<HomeSerialPage> {
                 onTap: () =>
                     Navigator.pushNamed(context, TOP_RATED_SERIALS_ROUTE),
               ),
-              Consumer<SerialListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedSerialsState;
-                if (state == RequestState.loading) {
+              // Consumer<SerialListNotifier>(builder: (context, data, child) {
+              //   final state = data.topRatedSerialsState;
+              //   if (state == RequestState.loading) {
+              //     return const Center(
+              //       child: CircularProgressIndicator(),
+              //     );
+              //   } else if (state == RequestState.loaded) {
+              //     return SerialList(data.topRatedSerials);
+              //   } else {
+              //     return const Text('Failed');
+              //   }
+              // }),
+              BlocBuilder<SerialListBloc, SerialListState>(
+                  builder: (context, state) {
+                if (state.serialListTopRatedState == RequestState.loading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.loaded) {
-                  return SerialList(data.topRatedSerials);
+                } else if (state.serialListTopRatedState ==
+                    RequestState.loaded) {
+                  return SerialList(state.data);
                 } else {
                   return const Text('Failed');
                 }
