@@ -20,7 +20,7 @@ class SearchMoviePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
+              onChanged: (query) {
                 context
                     .read<SearchMoviesBloc>()
                     .add(OnMovieQueryChanged(query));

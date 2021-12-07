@@ -1,4 +1,4 @@
-import 'package:core/domain/entities/serial.dart';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:core/presentation/bloc/serial/serial_detail/serial_detail_bloc.dart';
 import 'package:core/presentation/pages/serial/serial_detail_page.dart';
 import 'package:core/utils/state_enum.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-// import '../../../dummy_data/dummy_serial_objects.dart';
+import '../../../dummy_data/dummy_serial_objects.dart';
 
 class MockSerialDetailBloc extends Mock implements SerialDetailBloc {}
 
@@ -35,17 +35,6 @@ void main() {
         home: body,
       ),
     );
-  }
-
-  void _arrangeUsecase() {
-    when(() => serialDetailBloc.state.serialDetail)
-        .thenReturn(serialDetailInitial);
-    when(() => serialDetailBloc.state.serialDetailState)
-        .thenReturn(RequestState.loaded);
-    when(() => serialDetailBloc.state.serialRecommendations)
-        .thenReturn(<Serial>[]);
-    when(() => serialDetailBloc.state.serialRecommendationsState)
-        .thenReturn(RequestState.loaded);
   }
 
   testWidgets(
@@ -94,70 +83,64 @@ void main() {
     expect(watchlistButtonIcon, findsOneWidget);
   });
 
-  // testWidgets(
-  //     'Watchlist button should display Snackbar when added to watchlist',
-  //     (WidgetTester tester) async {
-  //   when(() => serialDetailBloc.stream)
-  //       .thenAnswer((_) => Stream.value(serialDetailStateInit.copyWith(
-  //             serialDetail: testSerialDetail,
-  //             serialDetailState: RequestState.loaded,
-  //             serialRecommendationsState: RequestState.loaded,
-  //             isAddedToWatchlist: true,
-  //             watchlistMessage: 'Added to Watchlist',
-  //           )));
-  //   when(() => serialDetailBloc.state)
-  //       .thenReturn(serialDetailStateInit.copyWith(
-  //     serialDetail: testSerialDetail,
-  //     serialDetailState: RequestState.loaded,
-  //     serialRecommendationsState: RequestState.loaded,
-  //     isAddedToWatchlist: true,
-  //     watchlistMessage: 'Added to Watchlist',
-  //   ));
+  testWidgets(
+      'Watchlist button should display Snackbar when added to watchlist',
+      (WidgetTester tester) async {
+    whenListen(
+        serialDetailBloc,
+        Stream.value(serialDetailStateInit.copyWith(
+          serialDetail: testSerialDetail,
+          serialDetailState: RequestState.loaded,
+          serialRecommendationsState: RequestState.loaded,
+          isAddedToWatchlist: true,
+          watchlistMessage: 'Added serial to Watchlist',
+        )));
+    when(() => serialDetailBloc.state).thenReturn(
+        serialDetailStateInit.copyWith(
+            serialDetail: testSerialDetail,
+            serialDetailState: RequestState.loaded,
+            serialRecommendationsState: RequestState.loaded));
 
-  //   final watchlistButton = find.byType(ElevatedButton);
+    await tester.pumpWidget(_makeTestableWidget(const SerialDetailPage(id: 1)));
 
-  //   await tester.pumpWidget(_makeTestableWidget(const SerialDetailPage(id: 1)));
+    expect(find.byIcon(Icons.add), findsOneWidget);
 
-  //   expect(find.byIcon(Icons.add), findsOneWidget);
+    final watchlistButton = find.byType(ElevatedButton);
 
-  //   await tester.tap(watchlistButton);
-  //   await tester.pump();
+    await tester.tap(watchlistButton);
+    await tester.pump();
 
-  //   expect(find.byType(SnackBar), findsOneWidget);
-  //   expect(find.text('Added to Watchlist'), findsOneWidget);
-  // });
+    expect(find.byType(SnackBar), findsOneWidget);
+    expect(find.text('Added serial to Watchlist'), findsOneWidget);
+  });
 
-  // testWidgets(
-  //     'Watchlist button should display AlertDialog when add to watchlist failed',
-  //     (WidgetTester tester) async {
-  //   when(() => serialDetailBloc.stream)
-  //       .thenAnswer((_) => Stream.value(serialDetailStateInit.copyWith(
-  //             serialDetailState: RequestState.loaded,
-  //             serialRecommendationsState: RequestState.loaded,
-  //             isAddedToWatchlist: false,
-  //             watchlistMessage: 'Failed',
-  //           )));
-  //   when(() => serialDetailBloc.state)
-  //       .thenReturn(serialDetailStateInit.copyWith(
-  //     serialDetailState: RequestState.loaded,
-  //     serialRecommendationsState: RequestState.loaded,
-  //     isAddedToWatchlist: false,
-  //     watchlistMessage: 'Failed',
-  //   ));
+  testWidgets(
+      'Watchlist button should display AlertDialog when add to watchlist failed',
+      (WidgetTester tester) async {
+    whenListen(
+        serialDetailBloc,
+        Stream.value(serialDetailStateInit.copyWith(
+          serialDetail: testSerialDetail,
+          serialDetailState: RequestState.loaded,
+          serialRecommendationsState: RequestState.loaded,
+          watchlistMessage: 'Failed',
+        )));
+    when(() => serialDetailBloc.state).thenReturn(
+        serialDetailStateInit.copyWith(
+            serialDetail: testSerialDetail,
+            serialDetailState: RequestState.loaded,
+            serialRecommendationsState: RequestState.loaded));
 
-  //   when(() => serialDetailBloc.state.isAddedToWatchlist).thenReturn(false);
-  //   when(() => serialDetailBloc.state.watchlistMessage).thenReturn('Failed');
+    await tester.pumpWidget(_makeTestableWidget(const SerialDetailPage(id: 1)));
 
-  //   final watchlistButton = find.byType(ElevatedButton);
+    expect(find.byIcon(Icons.add), findsOneWidget);
 
-  //   await tester.pumpWidget(_makeTestableWidget(const SerialDetailPage(id: 1)));
+    final watchlistButton = find.byType(ElevatedButton);
 
-  //   expect(find.byIcon(Icons.add), findsOneWidget);
+    await tester.tap(watchlistButton);
+    await tester.pump();
 
-  //   await tester.tap(watchlistButton);
-  //   await tester.pump();
-
-  //   expect(find.byType(AlertDialog), findsOneWidget);
-  //   expect(find.text('Failed'), findsOneWidget);
-  // });
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text('Failed'), findsOneWidget);
+  });
 }

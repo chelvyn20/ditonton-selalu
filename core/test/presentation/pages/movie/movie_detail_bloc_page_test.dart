@@ -1,4 +1,4 @@
-import 'package:core/domain/entities/movie.dart';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:core/presentation/bloc/movie/movie_detail/movie_detail_bloc.dart';
 import 'package:core/presentation/pages/movie/movie_detail_page.dart';
 import 'package:core/utils/state_enum.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-// import '../../../dummy_data/dummy_movie_objects.dart';
+import '../../../dummy_data/dummy_movie_objects.dart';
 
 class MockMovieDetailBloc extends Mock implements MovieDetailBloc {}
 
@@ -35,17 +35,6 @@ void main() {
         home: body,
       ),
     );
-  }
-
-  void _arrangeUsecase() {
-    when(() => movieDetailBloc.state.movieDetail)
-        .thenReturn(movieDetailInitial);
-    when(() => movieDetailBloc.state.movieDetailState)
-        .thenReturn(RequestState.loaded);
-    when(() => movieDetailBloc.state.movieRecommendations)
-        .thenReturn(<Movie>[]);
-    when(() => movieDetailBloc.state.movieRecommendationsState)
-        .thenReturn(RequestState.loaded);
   }
 
   testWidgets(
@@ -92,68 +81,62 @@ void main() {
     expect(watchlistButtonIcon, findsOneWidget);
   });
 
-  // testWidgets(
-  //     'Watchlist button should display Snackbar when added to watchlist',
-  //     (WidgetTester tester) async {
-  //   when(() => movieDetailBloc.stream)
-  //       .thenAnswer((_) => Stream.value(movieDetailStateInit.copyWith(
-  //             movieDetail: testMovieDetail,
-  //             movieDetailState: RequestState.loaded,
-  //             movieRecommendationsState: RequestState.loaded,
-  //             isAddedToWatchlist: true,
-  //             watchlistMessage: 'Added to Watchlist',
-  //           )));
-  //   when(() => movieDetailBloc.state).thenReturn(movieDetailStateInit.copyWith(
-  //     movieDetail: testMovieDetail,
-  //     movieDetailState: RequestState.loaded,
-  //     movieRecommendationsState: RequestState.loaded,
-  //     isAddedToWatchlist: true,
-  //     watchlistMessage: 'Added to Watchlist',
-  //   ));
+  testWidgets(
+      'Watchlist button should display Snackbar when added to watchlist',
+      (WidgetTester tester) async {
+    whenListen(
+        movieDetailBloc,
+        Stream.value(movieDetailStateInit.copyWith(
+          movieDetail: testMovieDetail,
+          movieDetailState: RequestState.loaded,
+          movieRecommendationsState: RequestState.loaded,
+          isAddedToWatchlist: true,
+          watchlistMessage: 'Added movie to Watchlist',
+        )));
+    when(() => movieDetailBloc.state).thenReturn(movieDetailStateInit.copyWith(
+        movieDetail: testMovieDetail,
+        movieDetailState: RequestState.loaded,
+        movieRecommendationsState: RequestState.loaded));
 
-  //   final watchlistButton = find.byType(ElevatedButton);
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
 
-  //   await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
+    expect(find.byIcon(Icons.add), findsOneWidget);
 
-  //   expect(find.byIcon(Icons.add), findsOneWidget);
+    final watchlistButton = find.byType(ElevatedButton);
 
-  //   await tester.tap(watchlistButton);
-  //   await tester.pump();
+    await tester.tap(watchlistButton);
+    await tester.pump();
 
-  //   expect(find.byType(SnackBar), findsOneWidget);
-  //   expect(find.text('Added to Watchlist'), findsOneWidget);
-  // });
+    expect(find.byType(SnackBar), findsOneWidget);
+    expect(find.text('Added movie to Watchlist'), findsOneWidget);
+  });
 
-  // testWidgets(
-  //     'Watchlist button should display AlertDialog when add to watchlist failed',
-  //     (WidgetTester tester) async {
-  //   when(() => movieDetailBloc.stream)
-  //       .thenAnswer((_) => Stream.value(movieDetailStateInit.copyWith(
-  //             movieDetailState: RequestState.loaded,
-  //             movieRecommendationsState: RequestState.loaded,
-  //             isAddedToWatchlist: false,
-  //             watchlistMessage: 'Failed',
-  //           )));
-  //   when(() => movieDetailBloc.state).thenReturn(movieDetailStateInit.copyWith(
-  //     movieDetailState: RequestState.loaded,
-  //     movieRecommendationsState: RequestState.loaded,
-  //     isAddedToWatchlist: false,
-  //     watchlistMessage: 'Failed',
-  //   ));
+  testWidgets(
+      'Watchlist button should display AlertDialog when add to watchlist failed',
+      (WidgetTester tester) async {
+    whenListen(
+        movieDetailBloc,
+        Stream.value(movieDetailStateInit.copyWith(
+          movieDetail: testMovieDetail,
+          movieDetailState: RequestState.loaded,
+          movieRecommendationsState: RequestState.loaded,
+          watchlistMessage: 'Failed',
+        )));
+    when(() => movieDetailBloc.state).thenReturn(movieDetailStateInit.copyWith(
+        movieDetail: testMovieDetail,
+        movieDetailState: RequestState.loaded,
+        movieRecommendationsState: RequestState.loaded));
 
-  //   when(() => movieDetailBloc.state.isAddedToWatchlist).thenReturn(false);
-  //   when(() => movieDetailBloc.state.watchlistMessage).thenReturn('Failed');
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
 
-  //   final watchlistButton = find.byType(ElevatedButton);
+    expect(find.byIcon(Icons.add), findsOneWidget);
 
-  //   await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
+    final watchlistButton = find.byType(ElevatedButton);
 
-  //   expect(find.byIcon(Icons.add), findsOneWidget);
+    await tester.tap(watchlistButton);
+    await tester.pump();
 
-  //   await tester.tap(watchlistButton);
-  //   await tester.pump();
-
-  //   expect(find.byType(AlertDialog), findsOneWidget);
-  //   expect(find.text('Failed'), findsOneWidget);
-  // });
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text('Failed'), findsOneWidget);
+  });
 }

@@ -20,7 +20,7 @@ class SearchSerialPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
+              onChanged: (query) {
                 context.read<SearchSerialsBloc>().add(OnSerialQueryChanged(query));
               },
               decoration: const InputDecoration(
