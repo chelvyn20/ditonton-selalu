@@ -28,7 +28,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
     required this.removeWatchlist,
   }) : super(MovieDetailState.initial()) {
     on<FetchMovieDetail>((event, emit) async {
-      emit(state.copyWith(movieDetailState: RequestState.loading));
+      emit(MovieDetailState.initial().copyWith(movieDetailState: RequestState.loading));
 
       final detailResult = await getMovieDetail.execute(event.id);
       final recommendationResult =

@@ -28,7 +28,7 @@ class SerialDetailBloc extends Bloc<SerialDetailEvent, SerialDetailState> {
     required this.removeWatchlist,
   }) : super(SerialDetailState.initial()) {
     on<FetchSerialDetail>((event, emit) async {
-      emit(state.copyWith(serialDetailState: RequestState.loading));
+      emit(SerialDetailState.initial().copyWith(serialDetailState: RequestState.loading));
 
       final detailResult = await getSerialDetail.execute(event.id);
       final recommendationResult =

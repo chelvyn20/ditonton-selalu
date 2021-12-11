@@ -73,6 +73,9 @@ class DetailContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return BlocListener<MovieDetailBloc, MovieDetailState>(
+      listenWhen: (previous, current) =>
+          previous.watchlistMessage != current.watchlistMessage &&
+          current.watchlistMessage != '',
       listener: (context, state) {
         final message = state.watchlistMessage;
 

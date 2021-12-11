@@ -1,4 +1,3 @@
-import 'package:core/common/http_ssl_pinning.dart';
 import 'package:core/common/network_info.dart';
 import 'package:core/data/datasources/db/movie_database_helper.dart';
 import 'package:core/data/datasources/db/serial_database_helper.dart';
@@ -8,8 +7,8 @@ import 'package:core/data/datasources/serial_local_data_source.dart';
 import 'package:core/data/datasources/serial_remote_data_source.dart';
 import 'package:core/domain/repositories/movie_repository.dart';
 import 'package:core/domain/repositories/serial_repository.dart';
-import 'package:mockito/annotations.dart';
 import 'package:http/http.dart' as http;
+import 'package:mockito/annotations.dart';
 
 @GenerateMocks([
   MovieRepository,

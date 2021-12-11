@@ -1,3 +1,4 @@
+import 'package:core/data/datasources/website_var.dart';
 import 'package:core/data/models/serial_detail_model.dart';
 import 'package:core/data/models/serial_model.dart';
 import 'package:core/data/models/serial_response.dart';
@@ -14,9 +15,6 @@ abstract class SerialRemoteDataSource {
 }
 
 class SerialRemoteDataSourceImpl implements SerialRemoteDataSource {
-  static const _API_KEY = 'api_key=62c20507bd01d0795c9ee23ee915cfb0';
-  static const _BASE_URL = 'https://api.themoviedb.org/3';
-
   final http.Client client;
 
   SerialRemoteDataSourceImpl({required this.client});
@@ -24,7 +22,7 @@ class SerialRemoteDataSourceImpl implements SerialRemoteDataSource {
   @override
   Future<List<SerialModel>> getOnTheAirSerials() async {
     final response =
-        await client.get(Uri.parse('$_BASE_URL/tv/on_the_air?$_API_KEY'));
+        await client.get(Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY'));
 
     if (response.statusCode == 200) {
       return SerialResponse.fromJson(response.body).serialList;
@@ -36,7 +34,7 @@ class SerialRemoteDataSourceImpl implements SerialRemoteDataSource {
   @override
   Future<List<SerialModel>> getPopularSerials() async {
     final response =
-        await client.get(Uri.parse('$_BASE_URL/tv/popular?$_API_KEY'));
+        await client.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY'));
 
     if (response.statusCode == 200) {
       return SerialResponse.fromJson(response.body).serialList;
@@ -47,7 +45,7 @@ class SerialRemoteDataSourceImpl implements SerialRemoteDataSource {
 
   @override
   Future<SerialDetailModel> getSerialDetail(int id) async {
-    final response = await client.get(Uri.parse('$_BASE_URL/tv/$id?$_API_KEY'));
+    final response = await client.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY'));
 
     if (response.statusCode == 200) {
       return SerialDetailModel.fromJson(response.body);
@@ -59,7 +57,7 @@ class SerialRemoteDataSourceImpl implements SerialRemoteDataSource {
   @override
   Future<List<SerialModel>> getSerialRecommendations(int id) async {
     final response = await client
-        .get(Uri.parse('$_BASE_URL/tv/$id/recommendations?$_API_KEY'));
+        .get(Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'));
 
     if (response.statusCode == 200) {
       return SerialResponse.fromJson(response.body).serialList;
@@ -71,7 +69,7 @@ class SerialRemoteDataSourceImpl implements SerialRemoteDataSource {
   @override
   Future<List<SerialModel>> getTopRatedSerials() async {
     final response =
-        await client.get(Uri.parse('$_BASE_URL/tv/top_rated?$_API_KEY'));
+        await client.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'));
 
     if (response.statusCode == 200) {
       return SerialResponse.fromJson(response.body).serialList;
@@ -83,7 +81,7 @@ class SerialRemoteDataSourceImpl implements SerialRemoteDataSource {
   @override
   Future<List<SerialModel>> searchSerials(String query) async {
     final response = await client
-        .get(Uri.parse('$_BASE_URL/search/tv?$_API_KEY&query=$query'));
+        .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'));
 
     if (response.statusCode == 200) {
       return SerialResponse.fromJson(response.body).serialList;
